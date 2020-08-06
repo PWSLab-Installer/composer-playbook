@@ -1,0 +1,23 @@
+- hosts: localhost
+  connection: local
+
+  vars:
+    
+
+  tasks:
+    
+    - name: Check the version of CentOS
+      command: hostnamectl
+      register: os_check
+      ignore_errors: yes
+
+    -   name: Install Role Composer
+        local_action: command ansible-galaxy install -f geerlingguy.composer 
+
+    -   name: Applying role Composer
+        command: mv ~/.ansible/roles/geerlingguy.composer ~/.ansible/roles/pwslab.composer
+        ignore_errors: yes
+
+    - name: Installing Composer
+      include_role:
+          name: pwslab.composer
